@@ -20,17 +20,16 @@ export default function Home() {
   // null | { type: "error" } | { type: "loading" | "success", event }
   const [modal, setModal] = useState(null);
 
-  const sendReveal = async (eventName) => {
+const sendReveal = async (eventName) => {
     try {
-      if (localStorage.getItem("mm_sent")) return;
       const res = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ event: eventName }),
       });
-      if (res.ok) localStorage.setItem("mm_sent", "1");
+      // Plus de localStorage ici, le mail partira à chaque clic !
     } catch (err) {
-      console.error("Envoi email échoué", err); // silencieux : on ne grille pas la blague
+      console.error("Envoi email échoué", err); 
     }
   };
 
